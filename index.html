@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tempest07 工具集</title>
+  <link rel="manifest" href="/manifest.json" />
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -71,13 +72,21 @@
       </div>
     </a>
 
-    <div class="card coming-soon">
-      <div class="card-icon">🛠️</div>
+    <a class="card" href="/trade-converter">
+      <div class="card-icon">🧾</div>
       <div class="card-content">
-        <h2>即将上线 <span class="badge">敬请期待</span></h2>
-        <p>新的工具正在开发中，敬请关注</p>
+        <h2>交易记录转换</h2>
+        <p>粘贴或上传 Word 文档，自动解析并导出 Excel</p>
       </div>
-    </div>
+    </a>
   </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+  </script>
 </body>
 </html>
