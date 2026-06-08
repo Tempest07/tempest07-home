@@ -87,7 +87,7 @@
     .welcome p:last-child { max-width: 560px; margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
     .date { color: var(--muted); font-size: 12px; white-space: nowrap; }
 
-    .command { position: relative; margin-bottom: 36px; }
+    .command { position: relative; display: block; margin-bottom: 48px; }
     .command > svg { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--faint); }
     .command input { width: 100%; height: 50px; padding: 0 88px 0 46px; border: 1px solid var(--line-strong); border-radius: 7px; outline: 0; background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
     .command input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent); }
@@ -111,10 +111,11 @@
 
     .activity { border-top: 1px solid var(--line); }
     .activity-row { min-height: 64px; display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 12px; align-items: center; border-bottom: 1px solid var(--line); }
-    .activity-icon { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 6px; background: var(--surface-2); color: var(--muted); }
+    .activity-icon { width: 32px; height: 32px; display: grid; place-items: center; flex: 0 0 32px; margin: 0; border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent); border-radius: 7px; background: var(--accent-soft); color: var(--accent); }
+    .activity-icon.green { border-color: color-mix(in srgb, var(--green) 18%, transparent); background: var(--green-soft); color: var(--green); }
     .activity-icon svg { width: 15px; height: 15px; }
     .activity-row strong { display: block; font-size: 12px; }
-    .activity-row span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .activity-row div span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
     .activity-row time { color: var(--faint); font-size: 11px; }
     .empty { display: none; padding: 28px; border: 1px dashed var(--line-strong); border-radius: 7px; color: var(--muted); text-align: center; font-size: 13px; }
     footer { margin-top: 40px; display: flex; justify-content: space-between; gap: 16px; color: var(--faint); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
@@ -125,6 +126,7 @@
       .sidebar nav, .sidebar-bottom, .brand small { display: none; }
       .topbar { height: 52px; padding: 0 16px; }
       .content { width: min(100% - 28px, 1040px); padding: 32px 0 40px; }
+      .command { margin-bottom: 38px; }
       .welcome { align-items: start; margin-bottom: 24px; }
       h1 { font-size: 27px; }
       .date { display: none; }
@@ -217,8 +219,8 @@
         <section>
           <div class="section-head"><h2>服务状态</h2><span>Gateway routes</span></div>
           <div class="activity">
-            <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16"/></svg></span><div><strong>Trade Converter</strong><span>trade-phraser.pages.dev</span></div><time>Live</time></div>
-            <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16"/></svg></span><div><strong>Trade Recorder</strong><span>trade-recorder.pages.dev</span></div><time>Live</time></div>
+            <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3"/><path d="m18 7-3 3"/><path d="M17 17H6l3 3"/><path d="m6 17 3-3"/></svg></span><div><strong>Trade Converter</strong><span>trade-phraser.pages.dev</span></div><time>Live</time></div>
+            <div class="activity-row"><span class="activity-icon green"><svg viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span><div><strong>Trade Recorder</strong><span>trade-recorder.pages.dev</span></div><time>Live</time></div>
           </div>
         </section>
 
