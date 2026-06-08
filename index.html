@@ -1,92 +1,266 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tempest07 工具集</title>
-  <link rel="manifest" href="/manifest.json" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f5">
+  <title>Tempest07 - Personal Workspace</title>
+  <meta name="description" content="Tempest07 personal tools and workspace">
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --surface-2: #f1f1ee;
+      --text: #20201e;
+      --muted: #73736f;
+      --faint: #a3a39e;
+      --line: #e5e5e1;
+      --line-strong: #d6d6d1;
+      --accent: #246bfd;
+      --accent-soft: #eaf0ff;
+      --green: #16875d;
+      --green-soft: #e5f5ee;
+      --orange: #b85f10;
+      --orange-soft: #fff1df;
+      --shadow: 0 12px 36px rgba(32, 32, 30, .07);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
     }
-    .container {
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-      padding: 50px 35px;
-      max-width: 550px;
-      width: 100%;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.6);
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #171716;
+      --surface: #20201f;
+      --surface-2: #292928;
+      --text: #f1f1ee;
+      --muted: #aaa9a4;
+      --faint: #73736f;
+      --line: #343432;
+      --line-strong: #464643;
+      --accent: #6694ff;
+      --accent-soft: #252f4b;
+      --green: #64c59a;
+      --green-soft: #203a30;
+      --orange: #f1ae6b;
+      --orange-soft: #493321;
+      --shadow: 0 14px 40px rgba(0, 0, 0, .2);
     }
-    h1 {
-      font-size: 2.2rem; font-weight: 700; margin-bottom: 6px;
-      color: #1d1d1f;
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+    svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .layout { min-height: 100vh; display: grid; grid-template-columns: 232px minmax(0, 1fr); }
+    .sidebar { position: sticky; top: 0; height: 100vh; padding: 18px 14px; border-right: 1px solid var(--line); background: var(--surface); }
+    .brand { height: 42px; display: flex; align-items: center; gap: 10px; padding: 0 8px; font-weight: 700; }
+    .brand-mark { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 7px; background: #20201e; color: white; }
+    [data-theme="dark"] .brand-mark { background: #f1f1ee; color: #20201e; }
+    .brand-mark svg { width: 16px; height: 16px; }
+    .brand small { margin-left: auto; color: var(--faint); font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+    .nav-label { margin: 24px 8px 7px; color: var(--faint); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .nav-link { min-height: 36px; display: flex; align-items: center; gap: 10px; padding: 0 10px; border-radius: 6px; color: var(--muted); font-size: 13px; font-weight: 600; }
+    .nav-link:hover, .nav-link.active { background: var(--surface-2); color: var(--text); }
+    .nav-link .badge { margin-left: auto; min-width: 20px; height: 20px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 5px; color: var(--faint); font-size: 10px; }
+    .sidebar-bottom { position: absolute; left: 14px; right: 14px; bottom: 18px; }
+    .system-card { padding: 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--bg); }
+    .system-top { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; font-weight: 700; }
+    .online { color: var(--green); }
+    .system-card p { margin: 6px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+
+    .main { min-width: 0; }
+    .topbar { height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 32px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(16px); }
+    .crumb { color: var(--muted); font-size: 13px; }
+    .crumb strong { color: var(--text); }
+    .top-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .icon-button { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--muted); cursor: pointer; }
+    .icon-button:hover { border-color: var(--line-strong); color: var(--text); }
+    .avatar { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: var(--accent); color: white; font-size: 11px; font-weight: 800; }
+
+    .content { width: min(1040px, calc(100% - 48px)); margin: 0 auto; padding: 56px 0 64px; }
+    .welcome { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+    .kicker { margin: 0 0 8px; color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: 32px; line-height: 1.15; letter-spacing: 0; }
+    .welcome p:last-child { max-width: 560px; margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .date { color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+    .command { position: relative; margin-bottom: 36px; }
+    .command > svg { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--faint); }
+    .command input { width: 100%; height: 50px; padding: 0 88px 0 46px; border: 1px solid var(--line-strong); border-radius: 7px; outline: 0; background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+    .command input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent); }
+    .command kbd { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); padding: 4px 7px; border: 1px solid var(--line); border-bottom-color: var(--line-strong); border-radius: 5px; background: var(--surface-2); color: var(--faint); font: 11px ui-monospace, SFMono-Regular, Consolas, monospace; }
+
+    .section-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+    .section-head h2 { margin: 0; font-size: 14px; letter-spacing: 0; }
+    .section-head span { color: var(--faint); font-size: 11px; }
+    .tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 38px; }
+    .tool { min-height: 164px; padding: 18px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+    .tool:hover { transform: translateY(-2px); border-color: var(--line-strong); box-shadow: var(--shadow); }
+    .tool-top { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
+    .tool-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 7px; background: var(--accent-soft); color: var(--accent); }
+    .tool.green .tool-icon { background: var(--green-soft); color: var(--green); }
+    .arrow { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 6px; color: var(--faint); }
+    .tool:hover .arrow { color: var(--text); }
+    .tool h3 { margin: 18px 0 5px; font-size: 15px; }
+    .tool p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .tool-meta { display: flex; align-items: center; gap: 8px; margin-top: 14px; color: var(--faint); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+    .tool-meta i { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+
+    .activity { border-top: 1px solid var(--line); }
+    .activity-row { min-height: 64px; display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 12px; align-items: center; border-bottom: 1px solid var(--line); }
+    .activity-icon { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 6px; background: var(--surface-2); color: var(--muted); }
+    .activity-icon svg { width: 15px; height: 15px; }
+    .activity-row strong { display: block; font-size: 12px; }
+    .activity-row span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .activity-row time { color: var(--faint); font-size: 11px; }
+    .empty { display: none; padding: 28px; border: 1px dashed var(--line-strong); border-radius: 7px; color: var(--muted); text-align: center; font-size: 13px; }
+    footer { margin-top: 40px; display: flex; justify-content: space-between; gap: 16px; color: var(--faint); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+
+    @media (max-width: 800px) {
+      .layout { display: block; }
+      .sidebar { position: static; width: auto; height: auto; padding: 10px 14px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .sidebar nav, .sidebar-bottom, .brand small { display: none; }
+      .topbar { height: 52px; padding: 0 16px; }
+      .content { width: min(100% - 28px, 1040px); padding: 32px 0 40px; }
+      .welcome { align-items: start; margin-bottom: 24px; }
+      h1 { font-size: 27px; }
+      .date { display: none; }
+      .tools { grid-template-columns: 1fr; }
     }
-    .subtitle {
-      color: #6e6e73; font-size: 1rem; margin-bottom: 35px;
+
+    @media (max-width: 460px) {
+      .crumb { display: none; }
+      .top-actions { width: 100%; justify-content: flex-end; }
+      .welcome p:last-child { font-size: 13px; }
+      .command input { padding-right: 46px; }
+      .command kbd { font-size: 0; }
+      .command kbd::after { content: "/"; font-size: 11px; }
+      footer { flex-direction: column; }
     }
-    .card {
-      display: flex; align-items: center; gap: 16px;
-      background: rgba(255,255,255,0.9); border: 1px solid #e8e8ed;
-      border-radius: 16px; padding: 22px 20px; margin-bottom: 16px;
-      text-decoration: none; color: #1d1d1f;
-      transition: all 0.25s ease; cursor: pointer; text-align: left;
-    }
-    .card:hover {
-      background: #fff; transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-    .card-icon {
-      font-size: 2rem; width: 50px; height: 50px;
-      border-radius: 12px; background: #f2f2f7;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .card-content h2 { font-size: 1.2rem; margin-bottom: 4px; }
-    .card-content p { font-size: 0.85rem; color: #86868b; }
-    .coming-soon { opacity: 0.6; pointer-events: none; }
-    .badge {
-      background: #e8e8ed; color: #6e6e73; font-size: 0.7rem;
-      padding: 2px 8px; border-radius: 10px; margin-left: 8px;
+
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Tempest07</h1>
-    <p class="subtitle">个人工作台 · 选择一个工具开始</p>
-
-    <a class="card" href="/trade-recorder">
-      <div class="card-icon">📋</div>
-      <div class="card-content">
-        <h2>交易记录管理器</h2>
-        <p>多窗口记录，跨设备同步，一键导出PDF</p>
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="brand" href="/">
+        <span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13h7L11 22l8.5-11h-7z"/></svg></span>
+        <span>Tempest07</span><small>LAB</small>
+      </a>
+      <nav>
+        <div class="nav-label">Workspace</div>
+        <a class="nav-link active" href="/"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Overview</a>
+        <a class="nav-link" href="#tools"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1z"/></svg>All tools<span class="badge">2</span></a>
+        <div class="nav-label">Quick access</div>
+        <a class="nav-link" href="/trade-converter/"><svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3"/><path d="m18 7-3 3"/><path d="M17 17H6l3 3"/><path d="m6 17 3-3"/></svg>Trade Converter</a>
+        <a class="nav-link" href="/trade-recorder/"><svg viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>Trade Recorder</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="system-card">
+          <div class="system-top"><span>Gateway</span><span class="online">Operational</span></div>
+          <p>2 tools connected through Cloudflare Workers.</p>
+        </div>
       </div>
-    </a>
+    </aside>
 
-    <a class="card" href="/trade-converter">
-      <div class="card-icon">🧾</div>
-      <div class="card-content">
-        <h2>交易记录转换</h2>
-        <p>粘贴或上传 Word 文档，自动解析并导出 Excel</p>
+    <main class="main">
+      <header class="topbar">
+        <span class="crumb">Workspace&nbsp; / &nbsp;<strong>Overview</strong></span>
+        <div class="top-actions">
+          <button class="icon-button" id="focusSearch" title="搜索工具" aria-label="搜索工具"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
+          <button class="icon-button" id="themeToggle" title="切换主题" aria-label="切换主题"><svg viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="4"/></svg></button>
+          <span class="avatar" title="Tempest07">T7</span>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="welcome">
+          <div>
+            <p class="kicker">Personal workspace</p>
+            <h1>欢迎回来，Tempest07</h1>
+            <p>集中访问你的日常工具。快速、安静，随时准备开始工作。</p>
+          </div>
+          <span class="date" id="today"></span>
+        </section>
+
+        <label class="command">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="toolSearch" type="search" placeholder="搜索或快速打开工具..." autocomplete="off">
+          <kbd>Ctrl K</kbd>
+        </label>
+
+        <section id="tools">
+          <div class="section-head"><h2>常用工具</h2><span>2 available</span></div>
+          <div class="tools" id="toolList">
+            <a class="tool" href="/trade-converter/" data-keywords="交易 转换 converter phraser trade format">
+              <div class="tool-top"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3"/><path d="m18 7-3 3"/><path d="M17 17H6l3 3"/><path d="m6 17 3-3"/></svg></span><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+              <h3>交易转换器</h3>
+              <p>将交易表达快速整理为适合记录和复盘的标准格式。</p>
+              <div class="tool-meta"><i></i> Available &nbsp;·&nbsp; /trade-converter</div>
+            </a>
+            <a class="tool green" href="/trade-recorder/" data-keywords="交易 记录 recorder journal trade log">
+              <div class="tool-top"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
+              <h3>交易记录器</h3>
+              <p>记录交易过程、结果和复盘信息，沉淀可回顾的数据。</p>
+              <div class="tool-meta"><i></i> Available &nbsp;·&nbsp; /trade-recorder</div>
+            </a>
+          </div>
+          <div class="empty" id="empty">没有找到匹配的工具</div>
+        </section>
+
+        <section>
+          <div class="section-head"><h2>服务状态</h2><span>Gateway routes</span></div>
+          <div class="activity">
+            <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16"/></svg></span><div><strong>Trade Converter</strong><span>trade-phraser.pages.dev</span></div><time>Live</time></div>
+            <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16"/></svg></span><div><strong>Trade Recorder</strong><span>trade-recorder.pages.dev</span></div><time>Live</time></div>
+          </div>
+        </section>
+
+        <footer><span>Tempest07 Gateway</span><span>Powered by Cloudflare Workers</span></footer>
       </div>
-    </a>
+    </main>
   </div>
 
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js');
+    const root = document.documentElement;
+    const search = document.querySelector("#toolSearch");
+    const cards = [...document.querySelectorAll(".tool")];
+    const empty = document.querySelector("#empty");
+    const savedTheme = localStorage.getItem("tempest-theme");
+    if (savedTheme) root.dataset.theme = savedTheme;
+    document.querySelector("#today").textContent = new Intl.DateTimeFormat("zh-CN", { month: "long", day: "numeric", weekday: "long" }).format(new Date());
+    document.querySelector("#focusSearch").addEventListener("click", () => search.focus());
+    document.querySelector("#themeToggle").addEventListener("click", () => {
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      localStorage.setItem("tempest-theme", next);
+    });
+    document.addEventListener("keydown", (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        search.focus();
+      }
+      if (event.key === "Escape") { search.value = ""; search.dispatchEvent(new Event("input")); search.blur(); }
+      if (event.key === "Enter" && document.activeElement === search) {
+        const visible = cards.find(card => !card.hidden);
+        if (visible) location.href = visible.href;
+      }
+    });
+    search.addEventListener("input", () => {
+      const query = search.value.trim().toLowerCase();
+      let count = 0;
+      cards.forEach(card => {
+        card.hidden = query && !(card.textContent + " " + card.dataset.keywords).toLowerCase().includes(query);
+        if (!card.hidden) count++;
       });
-    }
+      empty.style.display = count ? "none" : "block";
+    });
   </script>
 </body>
 </html>
