@@ -404,7 +404,7 @@ async function loadPreview() {
     const data = await response.json();
     preview.innerHTML = data.items.slice(0, 3).map((item) => `
       <a class="preview-card" href="${escapeAttribute(item.url)}" target="_blank" rel="noopener noreferrer">
-        <small>${escapeHtml(item.sourceName)}</small>
+        <small>${escapeHtml(item.sourceName)} · ${formatPreviewTime(item.publishedAt)}</small>
         <strong>${escapeHtml(item.title)}</strong>
       </a>
     `).join("");
@@ -429,6 +429,17 @@ function escapeHtml(value = "") {
 
 function escapeAttribute(value = "") {
   return escapeHtml(value);
+}
+
+function formatPreviewTime(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "时间未知";
+  return new Intl.DateTimeFormat("zh-CN", {
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
 }
 
 loadPreview();
