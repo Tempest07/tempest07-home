@@ -4,3 +4,5 @@
 /trade-recorder/* https://tempest07-gateway.weiqian-yu.workers.dev/trade-recorder/:splat 302
 /news-feed https://tempest07-gateway.weiqian-yu.workers.dev/news-feed/ 302
 /news-feed/* https://tempest07-gateway.weiqian-yu.workers.dev/news-feed/:splat 302
+/credit-bond-process https://tempest07-gateway.weiqian-yu.workers.dev/credit-bond-process/ 302
+/credit-bond-process/* https://tempest07-gateway.weiqian-yu.workers.dev/credit-bond-process/:splat 302

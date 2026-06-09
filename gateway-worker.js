@@ -11,6 +11,10 @@ const ROUTES = [
     prefix: "/news-feed",
     origin: "https://tempest07-news-feed.pages.dev",
   },
+  {
+    prefix: "/credit-bond-process",
+    origin: "https://credit-bond-process.pages.dev",
+  },
 ];
 
 async function proxy(request, targetOrigin, prefix = "") {
