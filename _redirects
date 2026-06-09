@@ -1,0 +1,6 @@
+/trade-converter https://tempest07-gateway.weiqian-yu.workers.dev/trade-converter/ 302
+/trade-converter/* https://tempest07-gateway.weiqian-yu.workers.dev/trade-converter/:splat 302
+/trade-recorder https://tempest07-gateway.weiqian-yu.workers.dev/trade-recorder/ 302
+/trade-recorder/* https://tempest07-gateway.weiqian-yu.workers.dev/trade-recorder/:splat 302
+/news-feed https://tempest07-gateway.weiqian-yu.workers.dev/news-feed/ 302
+/news-feed/* https://tempest07-gateway.weiqian-yu.workers.dev/news-feed/:splat 302
