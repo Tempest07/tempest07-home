@@ -404,7 +404,7 @@ search.addEventListener("input", () => {
 });
 
 async function loadPreview() {
-  const apiBase = localStorage.getItem("tempest-news-api") || window.TEMPEST_CONFIG?.newsApiBase;
+  const apiBase = normalizeNewsApiBase(localStorage.getItem("tempest-news-api") || window.TEMPEST_CONFIG?.newsApiBase || "");
   if (!apiBase) return;
 
   const preview = document.querySelector("#newsPreview");
@@ -428,6 +428,10 @@ async function loadPreview() {
     status.textContent = "Worker unavailable";
     time.textContent = "Offline";
   }
+}
+
+function normalizeNewsApiBase(value) {
+  return String(value || "").trim().replace(/\/+$/, "").replace(/\/api\/news$/, "");
 }
 
 function escapeHtml(value = "") {
