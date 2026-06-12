@@ -1,21 +1,48 @@
+const CANONICAL_ORIGIN = "https://tempest07.com";
+
 const ROUTES = [
   {
-    prefix: "/trade-converter",
+    prefix: "/gateway",
+    origin: "https://tempest07-home.pages.dev",
+  },
+  {
+    prefix: "/trade-excel-writer",
     origin: "https://trade-phraser.pages.dev",
   },
   {
-    prefix: "/trade-recorder",
+    prefix: "/trade-record",
     origin: "https://trade-recorder.pages.dev",
   },
   {
-    prefix: "/news-feed",
+    prefix: "/newsfeed",
     origin: "https://tempest07-news-feed.pages.dev",
   },
   {
-    prefix: "/credit-bond-process",
+    prefix: "/bond-centre",
     origin: "https://credit-bond-process.pages.dev",
   },
 ];
+
+const LEGACY_ROUTES = [
+  ["/trade-converter", "/trade-excel-writer"],
+  ["/trade-recorder", "/trade-record"],
+  ["/news-feed", "/newsfeed"],
+  ["/credit-bond-process", "/bond-centre"],
+];
+
+function redirectUrl(url, pathname) {
+  return `${CANONICAL_ORIGIN}${pathname}${url.search}`;
+}
+
+function legacyRedirect(url) {
+  for (const [from, to] of LEGACY_ROUTES) {
+    if (url.pathname === from) return redirectUrl(url, `${to}/`);
+    if (url.pathname.startsWith(`${from}/`)) {
+      return redirectUrl(url, `${to}${url.pathname.slice(from.length)}`);
+    }
+  }
+  return "";
+}
 
 async function proxy(request, targetOrigin, prefix = "") {
   const incomingUrl = new URL(request.url);
@@ -49,6 +76,17 @@ async function proxy(request, targetOrigin, prefix = "") {
 export default {
   async fetch(request) {
     const url = new URL(request.url);
+
+    if (url.pathname === "/") {
+      return Response.redirect(`${CANONICAL_ORIGIN}/gateway/`, 301);
+    }
+
+    const legacyTarget = legacyRedirect(url);
+    if (legacyTarget) return Response.redirect(legacyTarget, 301);
+
+    if (url.hostname !== "tempest07.com") {
+      return Response.redirect(redirectUrl(url, url.pathname), 301);
+    }
 
     for (const route of ROUTES) {
       if (url.pathname === route.prefix) {

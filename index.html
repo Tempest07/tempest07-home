@@ -4,11 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f7f5">
-  <title>Tempest07 - Personal Workspace</title>
-  <meta name="description" content="Tempest07 personal tools and workspace">
+  <title>Tempest07 Gateway</title>
+  <meta name="description" content="Tempest07 gateway for personal tools">
   <script>
     if (location.hostname === "tempest07-home.pages.dev") {
-      location.replace(`https://tempest07-gateway.weiqian-yu.workers.dev${location.pathname}${location.search}${location.hash}`);
+      const path = location.pathname === "/" ? "/gateway/" : location.pathname;
+      location.replace(`https://tempest07.com${path}${location.search}${location.hash}`);
     }
   </script>
   <style>
@@ -233,19 +234,19 @@ mark { padding: 0 2px; border-radius: 2px; background: var(--orange-soft); color
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <a class="brand" href="/">
+      <a class="brand" href="/gateway/">
         <span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13h7L11 22l8.5-11h-7z"/></svg></span>
         <span>Tempest07</span><small>LAB</small>
       </a>
       <nav>
         <div class="nav-label">Workspace</div>
-        <a class="nav-link active" href="/"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Overview</a>
-        <a class="nav-link" href="#tools"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1z"/></svg>All tools<span class="badge">3</span></a>
+        <a class="nav-link active" href="/gateway/"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Gateway</a>
+        <a class="nav-link" href="#tools"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1z"/></svg>All tools<span class="badge">4</span></a>
         <div class="nav-label">Quick access</div>
-        <a class="nav-link" href="/trade-converter/">Trade Converter</a>
-        <a class="nav-link" href="/trade-recorder/">Trade Recorder</a>
-        <a class="nav-link" href="/credit-bond-process/">项目中心</a>
-        <a class="nav-link" href="#" data-news-feed-link>News Feed</a>
+        <a class="nav-link" href="/trade-excel-writer/">Trade Excel Writer</a>
+        <a class="nav-link" href="/trade-record/">Trade Record</a>
+        <a class="nav-link" href="/bond-centre/">Bond Centre</a>
+        <a class="nav-link" href="#" data-news-feed-link>Newsfeed</a>
       </nav>
       <div class="sidebar-bottom">
         <div class="system-card">
@@ -257,7 +258,7 @@ mark { padding: 0 2px; border-radius: 2px; background: var(--orange-soft); color
 
     <main class="main">
       <header class="topbar">
-        <span class="crumb">Workspace&nbsp; / &nbsp;<strong>Overview</strong></span>
+        <span class="crumb">Workspace&nbsp; / &nbsp;<strong>Gateway</strong></span>
         <div class="top-actions">
           <button class="icon-button" id="focusSearch" title="搜索工具" aria-label="搜索工具"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
           <button class="icon-button" data-theme-toggle title="切换主题" aria-label="切换主题"><svg viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="4"/></svg></button>
@@ -268,7 +269,7 @@ mark { padding: 0 2px; border-radius: 2px; background: var(--orange-soft); color
       <div class="content">
         <section class="welcome">
           <div>
-            <p class="kicker">Personal workspace</p>
+            <p class="kicker">Gateway</p>
             <h1>欢迎回来，Tempest07</h1>
             <p>集中访问你的日常工具。快速、安静，随时准备开始工作。</p>
           </div>
@@ -284,48 +285,48 @@ mark { padding: 0 2px; border-radius: 2px; background: var(--orange-soft); color
         <section id="tools">
           <div class="section-head"><h2>常用工具</h2><span>4 available</span></div>
           <div class="tools" id="toolList">
-            <a class="tool" href="/trade-converter/" data-keywords="交易 转换 converter phraser trade format">
+            <a class="tool" href="/trade-excel-writer/" data-keywords="交易 转换 converter phraser trade format trade excel writer">
               <div class="tool-top"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3"/><path d="m18 7-3 3"/><path d="M17 17H6l3 3"/><path d="m6 17 3-3"/></svg></span><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
-              <h3>交易转换器</h3>
+              <h3>Trade Excel Writer</h3>
               <p>将交易表达快速整理为适合记录和复盘的标准格式。</p>
-              <div class="tool-meta"><i></i> Available · /trade-converter</div>
+              <div class="tool-meta"><i></i> Available · /trade-excel-writer</div>
             </a>
-            <a class="tool green" href="/trade-recorder/" data-keywords="交易 记录 recorder journal trade log">
+            <a class="tool green" href="/trade-record/" data-keywords="交易 记录 recorder journal trade log trade record">
               <div class="tool-top"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
-              <h3>交易记录器</h3>
+              <h3>Trade Record</h3>
               <p>记录交易过程、结果和复盘信息，沉淀可回顾的数据。</p>
-              <div class="tool-meta"><i></i> Available · /trade-recorder</div>
+              <div class="tool-meta"><i></i> Available · /trade-record</div>
             </a>
-            <a class="tool" href="/credit-bond-process/" data-keywords="信用债 流程 投标 授信 credit bond process">
+            <a class="tool" href="/bond-centre/" data-keywords="信用债 流程 投标 授信 credit bond process bond centre">
               <div class="tool-top"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
-              <h3>项目中心</h3>
+              <h3>Bond Centre</h3>
               <p>管理信用债项目台账、截标缴款待办、流程意见、投标结果与邮件提醒。</p>
-              <div class="tool-meta"><i></i> Available · /credit-bond-process</div>
+              <div class="tool-meta"><i></i> Available · /bond-centre</div>
             </a>
             <a class="tool orange" href="#" data-news-feed-link data-keywords="新闻 feed rss news 信息 来源 关键词">
               <div class="tool-top"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span><span class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span></div>
-              <h3>News Feed</h3>
+              <h3>Newsfeed</h3>
               <p>聚合关注的新闻来源，按关键词、时间和阅读状态筛选。</p>
-              <div class="tool-meta"><i></i> Available · /news-feed</div>
+              <div class="tool-meta"><i></i> Available · /newsfeed</div>
             </a>
           </div>
           <div class="empty-state" id="toolEmpty" hidden>没有找到匹配的工具</div>
         </section>
 
         <section>
-          <div class="section-head"><h2>最新新闻</h2><a class="section-action" href="#" data-news-feed-link>打开 News Feed →</a></div>
+          <div class="section-head"><h2>最新新闻</h2><a class="section-action" href="#" data-news-feed-link>Open Newsfeed →</a></div>
           <div class="news-preview" id="newsPreview">
-            <div class="preview-state">部署 Worker 并在 News Feed 页面填写接口地址后，这里会显示最新 3 条新闻。</div>
+            <div class="preview-state">部署 Worker 并在 Newsfeed 页面填写接口地址后，这里会显示最新 3 条新闻。</div>
           </div>
         </section>
 
         <section>
           <div class="section-head"><h2>服务状态</h2><span>Gateway routes</span></div>
           <div class="activity">
-            <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3"/><path d="m18 7-3 3"/><path d="M17 17H6l3 3"/><path d="m6 17 3-3"/></svg></span><div><strong>Trade Converter</strong><span>/trade-converter/</span></div><time>Live</time></div>
-            <div class="activity-row"><span class="activity-icon green"><svg viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span><div><strong>Trade Recorder</strong><span>/trade-recorder/</span></div><time>Live</time></div>
-            <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span><div><strong>项目中心</strong><span>/credit-bond-process/</span></div><time>Ready</time></div>
-            <div class="activity-row"><span class="activity-icon orange"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span><div><strong>News Feed</strong><span id="newsServiceStatus">Waiting for Worker setup</span></div><time id="newsServiceTime">Setup</time></div>
+            <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24"><path d="M7 7h11l-3-3"/><path d="m18 7-3 3"/><path d="M17 17H6l3 3"/><path d="m6 17 3-3"/></svg></span><div><strong>Trade Excel Writer</strong><span>/trade-excel-writer/</span></div><time>Live</time></div>
+            <div class="activity-row"><span class="activity-icon green"><svg viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v16H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span><div><strong>Trade Record</strong><span>/trade-record/</span></div><time>Live</time></div>
+            <div class="activity-row"><span class="activity-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span><div><strong>Bond Centre</strong><span>/bond-centre/</span></div><time>Ready</time></div>
+            <div class="activity-row"><span class="activity-icon orange"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span><div><strong>Newsfeed</strong><span id="newsServiceStatus">Waiting for Worker setup</span></div><time id="newsServiceTime">Setup</time></div>
           </div>
         </section>
 
@@ -337,7 +338,7 @@ mark { padding: 0 2px; border-radius: 2px; background: var(--orange-soft); color
   <script>
 window.TEMPEST_CONFIG = {
   newsApiBase: "https://tempest-news-api.weiqian-yu.workers.dev",
-  newsFeedUrl: "/news-feed/",
+  newsFeedUrl: "/newsfeed/",
 };
 
   </script>
@@ -424,7 +425,7 @@ async function loadPreview() {
     status.textContent = new URL(apiBase).host;
     time.textContent = "Live";
   } catch {
-    preview.innerHTML = '<div class="preview-state">新闻服务暂时无法连接，请在 News Feed 页面检查 Worker 地址。</div>';
+    preview.innerHTML = '<div class="preview-state">新闻服务暂时无法连接，请在 Newsfeed 页面检查 Worker 地址。</div>';
     status.textContent = "Worker unavailable";
     time.textContent = "Offline";
   }
