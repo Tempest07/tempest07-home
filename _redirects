@@ -16,4 +16,3 @@
 /news-feed/* https://tempest07.com/newsfeed/:splat 301
 /credit-bond-process https://tempest07.com/bond-centre/ 301
 /credit-bond-process/* https://tempest07.com/bond-centre/:splat 301
-/ https://tempest07.com/gateway/ 302
