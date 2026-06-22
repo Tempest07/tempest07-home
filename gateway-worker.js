@@ -23,7 +23,7 @@ const ROUTES = [
   },
   {
     prefix: "/weekly-report",
-    origin: "https://weekly-report-generator.pages.dev",
+    origin: "https://weekly-report-generator-7a5.pages.dev",
   },
 ];
 
