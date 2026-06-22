@@ -21,6 +21,10 @@ const ROUTES = [
     prefix: "/bond-centre",
     origin: "https://credit-bond-process.pages.dev",
   },
+  {
+    prefix: "/weekly-report",
+    origin: "https://weekly-report-generator.pages.dev",
+  },
 ];
 
 const LEGACY_ROUTES = [

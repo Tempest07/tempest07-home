@@ -8,6 +8,8 @@
 /newsfeed/* https://tempest07.com/newsfeed/:splat 302
 /bond-centre https://tempest07.com/bond-centre/ 302
 /bond-centre/* https://tempest07.com/bond-centre/:splat 302
+/weekly-report https://tempest07.com/weekly-report/ 302
+/weekly-report/* https://tempest07.com/weekly-report/:splat 302
 /trade-converter https://tempest07.com/trade-excel-writer/ 301
 /trade-converter/* https://tempest07.com/trade-excel-writer/:splat 301
 /trade-recorder https://tempest07.com/trade-record/ 301
