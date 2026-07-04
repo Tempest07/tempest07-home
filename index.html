@@ -106,7 +106,7 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 .button:hover, .icon-button:hover { border-color: var(--line-strong); color: var(--text); }
 .button.primary:hover { color: #fff; filter: brightness(.96); }
 .avatar { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: #111827; color: #f8fafc; font-size: 11px; font-weight: 800; box-shadow: 0 10px 24px rgba(17, 24, 39, .14); }
-.auth-button { min-width: 76px; }
+.auth-button { min-width: 76px; text-decoration: none; }
 
 .content { width: min(1040px, calc(100% - 64px)); margin: 0 auto; padding: 56px 0 64px; }
 .content.wide { width: min(1240px, calc(100% - 64px)); }
@@ -116,22 +116,6 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 h1 { margin: 0; font-size: 32px; line-height: 1.15; color: var(--text); }
 .welcome p:last-child { max-width: 600px; margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
 .date { color: var(--muted); font-size: 12px; white-space: nowrap; }
-.auth-panel { flex: 0 0 330px; display: grid; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); }
-.auth-panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.auth-panel-head strong { font-size: 13px; }
-.auth-panel-head span { color: var(--faint); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.auth-form { display: grid; gap: 10px; }
-.auth-form label { display: grid; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 800; }
-.auth-form input { width: 100%; height: 38px; min-width: 0; padding: 0 10px; border: 1px solid var(--line); border-radius: 7px; outline: none; background: var(--bg); color: var(--text); }
-.auth-form input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent); }
-.auth-form .button { width: 100%; }
-.auth-status { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
-.auth-status strong { color: var(--text); }
-.auth-status.error { color: var(--red); }
-.auth-panel.is-signed-in { border-color: color-mix(in srgb, var(--green) 28%, var(--line)); background: linear-gradient(135deg, var(--surface), color-mix(in srgb, var(--green-soft) 50%, var(--surface))); }
-.auth-panel.is-signed-in .auth-panel-head span { color: var(--green); }
-.session-actions { display: flex; gap: 8px; }
-.session-actions .button { flex: 1 1 0; }
 .section-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
 .section-head h2 { margin: 0; font-size: 14px; }
 .section-head span { color: var(--faint); font-size: 11px; }
@@ -238,7 +222,6 @@ mark { padding: 0 2px; border-radius: 2px; background: var(--orange-soft); color
   .topbar { height: 52px; padding: 0 16px; }
   .content, .content.wide { width: min(100% - 28px, 1040px); padding: 32px 0 40px; }
   .welcome { display: grid; align-items: start; margin-bottom: 24px; }
-  .auth-panel { width: 100%; }
   h1 { font-size: 27px; }
   .date { display: none; }
   .tools, .news-preview { grid-template-columns: 1fr; }
@@ -298,7 +281,7 @@ mark { padding: 0 2px; border-radius: 2px; background: var(--orange-soft); color
         <div class="top-actions">
           <button class="icon-button" id="focusSearch" title="搜索工具" aria-label="搜索工具"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
           <button class="icon-button" data-theme-toggle title="切换主题" aria-label="切换主题"><svg viewBox="0 0 24 24"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="4"/></svg></button>
-          <button class="button auth-button" id="topAuthButton" type="button">登录</button>
+          <a class="button auth-button" id="topAuthButton" href="/login/?next=/gateway/">登录</a>
           <span class="avatar" id="gatewayAvatar" title="Tempest07">T7</span>
         </div>
       </header>
@@ -310,27 +293,7 @@ mark { padding: 0 2px; border-radius: 2px; background: var(--orange-soft); color
             <h1 id="welcomeTitle">欢迎回来，Tempest07</h1>
             <p id="welcomeCopy">集中访问你的日常工具。快速、安静，随时准备开始工作。</p>
           </div>
-          <section class="auth-panel" id="authPanel" aria-label="登录状态">
-            <div class="auth-panel-head">
-              <strong id="authPanelTitle">登录云端数据库</strong>
-              <span id="authPanelState">Secure</span>
-            </div>
-            <form class="auth-form" id="gatewayLoginForm" autocomplete="on">
-              <label>用户名
-                <input id="gatewayUsername" name="username" autocomplete="username" value="admin">
-              </label>
-              <label>密码
-                <input id="gatewayPassword" name="password" type="password" autocomplete="current-password" placeholder="输入管理员密码">
-              </label>
-              <button class="button primary" id="gatewayLoginButton" type="submit">登录并进入</button>
-            </form>
-            <div class="session-actions" id="sessionActions" hidden>
-              <a class="button primary" href="/bond-centre/">进入项目中心</a>
-              <button class="button" id="gatewayLogoutButton" type="button">退出登录</button>
-            </div>
-            <p class="auth-status" id="authStatus">登录后可直接访问项目中心、主体库、DM 测试和云端资料库。</p>
-            <span class="date" data-today></span>
-          </section>
+          <span class="date" data-today></span>
         </section>
 
         <label class="command">
@@ -528,103 +491,34 @@ loadPreview();
 
   </script>
   <script>
-const AUTH_API_BASE = "/bond-centre/api/auth";
-const authPanel = document.querySelector("#authPanel");
-const authForm = document.querySelector("#gatewayLoginForm");
-const authStatus = document.querySelector("#authStatus");
-const authPanelTitle = document.querySelector("#authPanelTitle");
-const authPanelState = document.querySelector("#authPanelState");
 const topAuthButton = document.querySelector("#topAuthButton");
-const sessionActions = document.querySelector("#sessionActions");
-const logoutButton = document.querySelector("#gatewayLogoutButton");
 const welcomeTitle = document.querySelector("#welcomeTitle");
 const welcomeCopy = document.querySelector("#welcomeCopy");
 const avatar = document.querySelector("#gatewayAvatar");
 
-topAuthButton?.addEventListener("click", () => {
-  if (authPanel?.classList.contains("is-signed-in")) {
-    location.href = "/bond-centre/";
-    return;
-  }
-  document.querySelector("#gatewayPassword")?.focus();
-});
-
-authForm?.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const username = document.querySelector("#gatewayUsername")?.value.trim() || "admin";
-  const password = document.querySelector("#gatewayPassword")?.value || "";
-  if (!username || !password) {
-    setAuthMessage("请输入用户名和密码。", "error");
-    return;
-  }
-  setAuthBusy(true);
-  setAuthMessage("正在登录并建立会话...");
-  try {
-    const response = await fetch(`${AUTH_API_BASE}/login`, {
-      method: "POST",
-      credentials: "same-origin",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-    const payload = await response.json().catch(() => ({}));
-    if (!response.ok || !payload.user) throw new Error(payload.error || `HTTP ${response.status}`);
-    applySignedIn(payload.user);
-    setAuthMessage(payload.message || `欢迎回来，${payload.user.nickname || payload.user.username}`);
-    document.querySelector("#gatewayPassword").value = "";
-  } catch (error) {
-    applySignedOut();
-    setAuthMessage(error.message || "登录失败，请检查密码。", "error");
-  } finally {
-    setAuthBusy(false);
-  }
-});
-
-logoutButton?.addEventListener("click", async () => {
-  setAuthBusy(true);
-  await fetch(`${AUTH_API_BASE}/logout`, {
-    method: "POST",
-    credentials: "same-origin",
-  }).catch(() => {});
-  applySignedOut();
-  setAuthMessage("已退出登录。");
-  setAuthBusy(false);
-});
-
 async function restoreGatewaySession() {
-  setAuthMessage("正在检查登录状态...");
   try {
-    const response = await fetch(`${AUTH_API_BASE}/session`, {
+    const response = await fetch("/auth/session", {
       cache: "no-store",
       credentials: "same-origin",
     });
-    if (!response.ok) {
-      applySignedOut();
-      setAuthMessage("请登录管理员账号。");
-      return;
-    }
+    if (!response.ok) return applySignedOut();
     const payload = await response.json();
-    if (payload.user) {
-      applySignedIn(payload.user);
-      setAuthMessage(`会话已恢复，欢迎回来，${payload.user.nickname || payload.user.username}。`);
-      return;
-    }
+    if (payload.user) return applySignedIn(payload.user);
   } catch {
-    // Keep the login panel usable even if the auth API is temporarily unavailable.
+    applySignedOut();
   }
-  applySignedOut();
-  setAuthMessage("请登录管理员账号。");
+  return applySignedOut();
 }
 
 function applySignedIn(user) {
   const name = user.nickname || user.username || "管理员";
-  authPanel?.classList.add("is-signed-in");
-  if (authPanelTitle) authPanelTitle.textContent = `欢迎回来，${name}`;
-  if (authPanelState) authPanelState.textContent = "Signed in";
-  if (authForm) authForm.hidden = true;
-  if (sessionActions) sessionActions.hidden = false;
-  if (topAuthButton) topAuthButton.textContent = "进入项目中心";
+  if (topAuthButton) {
+    topAuthButton.textContent = "进入项目中心";
+    topAuthButton.href = "/bond-centre/";
+  }
   if (welcomeTitle) welcomeTitle.textContent = `欢迎回来，${name}`;
-  if (welcomeCopy) welcomeCopy.textContent = "登录状态已恢复，可以直接进入项目中心并访问云端资料库。";
+  if (welcomeCopy) welcomeCopy.textContent = "登录状态已恢复，可以直接进入各个工具和云端数据库。";
   if (avatar) {
     avatar.textContent = initials(name);
     avatar.title = name;
@@ -632,33 +526,16 @@ function applySignedIn(user) {
 }
 
 function applySignedOut() {
-  authPanel?.classList.remove("is-signed-in");
-  if (authPanelTitle) authPanelTitle.textContent = "登录云端数据库";
-  if (authPanelState) authPanelState.textContent = "Secure";
-  if (authForm) authForm.hidden = false;
-  if (sessionActions) sessionActions.hidden = true;
-  if (topAuthButton) topAuthButton.textContent = "登录";
+  if (topAuthButton) {
+    topAuthButton.textContent = "登录";
+    topAuthButton.href = "/login/?next=/gateway/";
+  }
   if (welcomeTitle) welcomeTitle.textContent = "欢迎回来，Tempest07";
   if (welcomeCopy) welcomeCopy.textContent = "集中访问你的日常工具。登录后，云端数据库会话会在各个子界面自动生效。";
   if (avatar) {
     avatar.textContent = "T7";
     avatar.title = "Tempest07";
   }
-}
-
-function setAuthBusy(busy) {
-  authForm?.querySelectorAll("input, button").forEach((element) => {
-    element.disabled = Boolean(busy);
-  });
-  if (logoutButton) logoutButton.disabled = Boolean(busy);
-  const submit = document.querySelector("#gatewayLoginButton");
-  if (submit) submit.textContent = busy ? "正在登录..." : "登录并进入";
-}
-
-function setAuthMessage(message, type = "") {
-  if (!authStatus) return;
-  authStatus.textContent = message;
-  authStatus.classList.toggle("error", type === "error");
 }
 
 function initials(value = "") {

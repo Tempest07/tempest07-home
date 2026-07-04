@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>Tempest07 登录</title>
+  <style>
+:root {
+  --bg: #f6f4ef;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --text: #182033;
+  --muted: #667085;
+  --faint: #98a2b3;
+  --line: #d9deea;
+  --accent: #4f46e5;
+  --accent-2: #0f766e;
+  --red: #b42318;
+  --green: #047857;
+  --shadow: 0 24px 70px rgba(24, 32, 51, .14);
+}
+
+* { box-sizing: border-box; }
+html { min-height: 100%; background: var(--bg); }
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background:
+    linear-gradient(135deg, rgba(79, 70, 229, .10), transparent 34%),
+    linear-gradient(315deg, rgba(15, 118, 110, .10), transparent 38%),
+    var(--bg);
+}
+
+a { color: inherit; }
+.shell {
+  width: min(1080px, calc(100% - 40px));
+  min-height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, .72fr);
+  align-items: center;
+  gap: 44px;
+  padding: 44px 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 46px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--text);
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(24, 32, 51, .18);
+}
+
+.brand-mark svg { width: 17px; height: 17px; fill: currentColor; }
+.intro { max-width: 600px; }
+.kicker {
+  margin: 0 0 12px;
+  color: var(--accent-2);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  max-width: 660px;
+  font-size: 44px;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.intro-copy {
+  margin: 18px 0 0;
+  max-width: 560px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.access-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 34px;
+}
+
+.access-item {
+  min-height: 74px;
+  padding: 14px;
+  border: 1px solid rgba(217, 222, 234, .82);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .58);
+}
+
+.access-item strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.access-item span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.panel {
+  width: 100%;
+  padding: 26px;
+  border: 1px solid rgba(217, 222, 234, .92);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .92);
+  box-shadow: var(--shadow);
+}
+
+.panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.panel-head h2 {
+  margin: 0 0 6px;
+  font-size: 21px;
+  line-height: 1.25;
+}
+
+.panel-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.status-pill {
+  flex: 0 0 auto;
+  padding: 6px 9px;
+  border: 1px solid rgba(79, 70, 229, .18);
+  border-radius: 7px;
+  color: var(--accent);
+  background: rgba(79, 70, 229, .08);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.field span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.field input {
+  width: 100%;
+  height: 48px;
+  min-width: 0;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  outline: none;
+  color: var(--text);
+  background: var(--surface-2);
+  font: 700 16px/1.2 inherit;
+}
+
+.field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
+  background: #fff;
+}
+
+.actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.button {
+  width: 100%;
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.button.primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: .62;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.message {
+  min-height: 20px;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.message.error { color: var(--red); }
+.message.success { color: var(--green); }
+.session-box {
+  display: none;
+  gap: 12px;
+}
+
+.is-signed-in .login-form { display: none; }
+.is-signed-in .session-box { display: grid; }
+.signed-card {
+  padding: 14px;
+  border: 1px solid rgba(4, 120, 87, .20);
+  border-radius: 8px;
+  background: rgba(4, 120, 87, .08);
+}
+
+.signed-card strong { display: block; margin-bottom: 5px; font-size: 14px; }
+.signed-card span { color: var(--muted); font-size: 12px; }
+
+@media (max-width: 860px) {
+  .shell {
+    width: min(100% - 28px, 680px);
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 28px 0 38px;
+  }
+  .brand { margin-bottom: 26px; }
+  h1 { font-size: 32px; }
+  .access-list { grid-template-columns: 1fr; margin-top: 22px; }
+  .panel { padding: 20px; }
+}
+
+@media (max-width: 480px) {
+  .shell { width: min(100% - 24px, 680px); }
+  .panel-head { display: grid; }
+  .status-pill { width: max-content; }
+  .button-row { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="intro" aria-label="Tempest07">
+      <a class="brand" href="/gateway/">
+        <span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13h7L11 22l8.5-11h-7z"/></svg></span>
+        <span>Tempest07</span>
+      </a>
+      <p class="kicker">Secure Gateway</p>
+      <h1>统一登录后，直接进入 Tempest07 的所有工作界面。</h1>
+      <p class="intro-copy">登录状态由 tempest07.com 统一维护，项目中心、主体库和其他子工具只读取 gateway 传递的用户身份，不再各自收取登录信息。</p>
+      <div class="access-list">
+        <div class="access-item"><strong>项目中心</strong><span>新增项目、主体授信、流程意见和资料库。</span></div>
+        <div class="access-item"><strong>交易工具</strong><span>成交文本、Excel 写入、交易记录和复盘。</span></div>
+        <div class="access-item"><strong>报告工具</strong><span>周报任务、新闻流和辅助信息入口。</span></div>
+        <div class="access-item"><strong>持久会话</strong><span>登录后 30 天内自动恢复访问状态。</span></div>
+      </div>
+    </section>
+
+    <section class="panel" id="loginPanel" aria-label="登录">
+      <div class="panel-head">
+        <div>
+          <h2 id="panelTitle">管理员登录</h2>
+          <p id="panelCopy">请输入管理员账号，登录后可返回刚才访问的页面。</p>
+        </div>
+        <span class="status-pill" id="panelState">Secure</span>
+      </div>
+
+      <form class="login-form" id="loginForm" autocomplete="on">
+        <label class="field">
+          <span>用户名</span>
+          <input id="username" name="username" autocomplete="username" value="admin" required>
+        </label>
+        <label class="field">
+          <span>密码</span>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="输入管理员密码" required>
+        </label>
+        <div class="actions">
+          <button class="button primary" id="loginButton" type="submit">登录</button>
+          <a class="button" href="/gateway/">返回 Gateway</a>
+        </div>
+      </form>
+
+      <div class="session-box" id="sessionBox">
+        <div class="signed-card">
+          <strong id="signedName">欢迎回来，管理员</strong>
+          <span>你的登录状态已经恢复，可以直接进入子系统。</span>
+        </div>
+        <div class="button-row">
+          <a class="button primary" id="continueButton" href="/gateway/">继续访问</a>
+          <button class="button" id="logoutButton" type="button">退出登录</button>
+        </div>
+      </div>
+
+      <p class="message" id="message">登录状态会保存在 tempest07.com，不需要在项目中心重复登录。</p>
+    </section>
+  </main>
+
+  <script>
+const panel = document.querySelector("#loginPanel");
+const form = document.querySelector("#loginForm");
+const usernameInput = document.querySelector("#username");
+const passwordInput = document.querySelector("#password");
+const loginButton = document.querySelector("#loginButton");
+const logoutButton = document.querySelector("#logoutButton");
+const continueButton = document.querySelector("#continueButton");
+const panelTitle = document.querySelector("#panelTitle");
+const panelCopy = document.querySelector("#panelCopy");
+const panelState = document.querySelector("#panelState");
+const signedName = document.querySelector("#signedName");
+const message = document.querySelector("#message");
+const nextPath = safeNext(new URL(location.href).searchParams.get("next")) || "/gateway/";
+
+if (continueButton) continueButton.href = nextPath;
+
+form?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const username = usernameInput?.value.trim() || "admin";
+  const password = passwordInput?.value || "";
+  if (!username || !password) {
+    setMessage("请输入用户名和密码。", "error");
+    return;
+  }
+  setBusy(true);
+  setMessage("正在登录...");
+  try {
+    const response = await fetch("/auth/login", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || !payload.user) throw new Error(payload.error || `HTTP ${response.status}`);
+    passwordInput.value = "";
+    applySignedIn(payload.user);
+    setMessage(payload.message || "登录成功。", "success");
+    location.assign(nextPath);
+  } catch (error) {
+    applySignedOut();
+    setMessage(error.message || "登录失败，请检查密码。", "error");
+  } finally {
+    setBusy(false);
+  }
+});
+
+logoutButton?.addEventListener("click", async () => {
+  setBusy(true);
+  await fetch("/auth/logout", {
+    method: "POST",
+    credentials: "same-origin",
+  }).catch(() => {});
+  applySignedOut();
+  setMessage("已退出登录。", "success");
+  setBusy(false);
+});
+
+restoreSession();
+
+async function restoreSession() {
+  try {
+    const response = await fetch("/auth/session", {
+      cache: "no-store",
+      credentials: "same-origin",
+    });
+    if (!response.ok) return applySignedOut();
+    const payload = await response.json();
+    if (payload.user) {
+      applySignedIn(payload.user);
+      setMessage("会话已恢复，可以继续访问。", "success");
+      return;
+    }
+  } catch {
+    applySignedOut();
+  }
+  return applySignedOut();
+}
+
+function applySignedIn(user) {
+  const name = user.nickname || user.username || "管理员";
+  panel?.classList.add("is-signed-in");
+  if (panelTitle) panelTitle.textContent = `欢迎回来，${name}`;
+  if (panelCopy) panelCopy.textContent = "当前浏览器已经登录 tempest07.com。";
+  if (panelState) panelState.textContent = "Signed in";
+  if (signedName) signedName.textContent = `欢迎回来，${name}`;
+}
+
+function applySignedOut() {
+  panel?.classList.remove("is-signed-in");
+  if (panelTitle) panelTitle.textContent = "管理员登录";
+  if (panelCopy) panelCopy.textContent = "请输入管理员账号，登录后可返回刚才访问的页面。";
+  if (panelState) panelState.textContent = "Secure";
+}
+
+function setBusy(busy) {
+  form?.querySelectorAll("input, button").forEach((element) => {
+    element.disabled = Boolean(busy);
+  });
+  if (logoutButton) logoutButton.disabled = Boolean(busy);
+  if (loginButton) loginButton.textContent = busy ? "正在登录..." : "登录";
+}
+
+function setMessage(text, type = "") {
+  if (!message) return;
+  message.textContent = text;
+  message.classList.toggle("error", type === "error");
+  message.classList.toggle("success", type === "success");
+}
+
+function safeNext(value) {
+  if (!value || !value.startsWith("/")) return "";
+  if (value.startsWith("//")) return "";
+  return value;
+}
+  </script>
+</body>
+</html>
