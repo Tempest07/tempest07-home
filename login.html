@@ -309,7 +309,7 @@ h1 {
           <h2 id="panelTitle">管理员登录</h2>
           <p id="panelCopy">请输入管理员账号，登录后可返回刚才访问的页面。</p>
         </div>
-        <span class="status-pill" id="panelState">Secure</span>
+        <span class="status-pill" id="panelState">登录入口</span>
       </div>
 
       <form class="login-form" id="loginForm" autocomplete="on">
@@ -435,7 +435,7 @@ function applySignedOut() {
   panel?.classList.remove("is-signed-in");
   if (panelTitle) panelTitle.textContent = "管理员登录";
   if (panelCopy) panelCopy.textContent = "请输入管理员账号，登录后可返回刚才访问的页面。";
-  if (panelState) panelState.textContent = "Secure";
+  if (panelState) panelState.textContent = "登录入口";
 }
 
 function setBusy(busy) {
