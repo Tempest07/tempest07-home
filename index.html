@@ -518,7 +518,7 @@ function applySignedIn(user) {
     topAuthButton.href = "/bond-centre/";
   }
   if (welcomeTitle) welcomeTitle.textContent = `欢迎回来，${name}`;
-  if (welcomeCopy) welcomeCopy.textContent = "登录状态已恢复，可以直接进入各个工具和云端数据库。";
+  if (welcomeCopy) welcomeCopy.textContent = "继续处理项目、主体库和日常工具。";
   if (avatar) {
     avatar.textContent = initials(name);
     avatar.title = name;
@@ -531,7 +531,7 @@ function applySignedOut() {
     topAuthButton.href = "/login/?next=/gateway/";
   }
   if (welcomeTitle) welcomeTitle.textContent = "欢迎回来，Tempest07";
-  if (welcomeCopy) welcomeCopy.textContent = "集中访问你的日常工具。登录后，云端数据库会话会在各个子界面自动生效。";
+  if (welcomeCopy) welcomeCopy.textContent = "集中访问你的日常工具，登录后进入工作台。";
   if (avatar) {
     avatar.textContent = "T7";
     avatar.title = "Tempest07";

@@ -292,14 +292,14 @@ h1 {
         <span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13h7L11 22l8.5-11h-7z"/></svg></span>
         <span>Tempest07</span>
       </a>
-      <p class="kicker">Secure Gateway</p>
-      <h1>统一登录后，直接进入 Tempest07 的所有工作界面。</h1>
-      <p class="intro-copy">登录状态由 tempest07.com 统一维护，项目中心、主体库和其他子工具只读取 gateway 传递的用户身份，不再各自收取登录信息。</p>
+      <p class="kicker">Tempest07</p>
+      <h1>欢迎回来。</h1>
+      <p class="intro-copy">请登录后进入工作台，继续处理项目中心、主体库和日常工具。</p>
       <div class="access-list">
-        <div class="access-item"><strong>项目中心</strong><span>新增项目、主体授信、流程意见和资料库。</span></div>
+        <div class="access-item"><strong>项目中心</strong><span>项目录入、主体授信、流程意见和资料库。</span></div>
+        <div class="access-item"><strong>主体与授信</strong><span>主体信息、联动分行、评级和批单要素。</span></div>
         <div class="access-item"><strong>交易工具</strong><span>成交文本、Excel 写入、交易记录和复盘。</span></div>
         <div class="access-item"><strong>报告工具</strong><span>周报任务、新闻流和辅助信息入口。</span></div>
-        <div class="access-item"><strong>持久会话</strong><span>登录后 30 天内自动恢复访问状态。</span></div>
       </div>
     </section>
 
@@ -330,7 +330,7 @@ h1 {
       <div class="session-box" id="sessionBox">
         <div class="signed-card">
           <strong id="signedName">欢迎回来，管理员</strong>
-          <span>你的登录状态已经恢复，可以直接进入子系统。</span>
+          <span>可以继续进入工作台。</span>
         </div>
         <div class="button-row">
           <a class="button primary" id="continueButton" href="/gateway/">继续访问</a>
@@ -338,7 +338,7 @@ h1 {
         </div>
       </div>
 
-      <p class="message" id="message">登录状态会保存在 tempest07.com，不需要在项目中心重复登录。</p>
+      <p class="message" id="message">请输入账号和密码。</p>
     </section>
   </main>
 
@@ -413,7 +413,7 @@ async function restoreSession() {
     const payload = await response.json();
     if (payload.user) {
       applySignedIn(payload.user);
-      setMessage("会话已恢复，可以继续访问。", "success");
+      setMessage("欢迎回来，可以继续访问。", "success");
       return;
     }
   } catch {
@@ -426,8 +426,8 @@ function applySignedIn(user) {
   const name = user.nickname || user.username || "管理员";
   panel?.classList.add("is-signed-in");
   if (panelTitle) panelTitle.textContent = `欢迎回来，${name}`;
-  if (panelCopy) panelCopy.textContent = "当前浏览器已经登录 tempest07.com。";
-  if (panelState) panelState.textContent = "Signed in";
+  if (panelCopy) panelCopy.textContent = "可以继续进入工作台。";
+  if (panelState) panelState.textContent = "已登录";
   if (signedName) signedName.textContent = `欢迎回来，${name}`;
 }
 
