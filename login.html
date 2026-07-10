@@ -4,21 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4f6fb">
   <title>Tempest07 登录</title>
   <style>
 :root {
-  --bg: #f6f4ef;
+  --bg: #f3f5fa;
   --surface: #ffffff;
-  --surface-2: #f8fafc;
+  --surface-2: #f7f8fc;
   --text: #182033;
-  --muted: #667085;
-  --faint: #98a2b3;
-  --line: #d9deea;
-  --accent: #4f46e5;
-  --accent-2: #0f766e;
-  --red: #b42318;
-  --green: #047857;
-  --shadow: 0 24px 70px rgba(24, 32, 51, .14);
+  --muted: #7b8497;
+  --faint: #9aa4b6;
+  --line: #e2e7f0;
+  --accent: #5b6cff;
+  --accent-2: #43bfcf;
+  --red: #d93861;
+  --green: #0e9f74;
+  --shadow: 0 26px 72px rgba(15,23,42,.14);
 }
 
 * { box-sizing: border-box; }
@@ -29,29 +30,29 @@ body {
   color: var(--text);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   background:
-    linear-gradient(135deg, rgba(79, 70, 229, .10), transparent 34%),
-    linear-gradient(315deg, rgba(15, 118, 110, .10), transparent 38%),
-    var(--bg);
+    radial-gradient(circle at 88% 3%, rgba(91,108,255,.09), transparent 28rem),
+    radial-gradient(circle at 18% 100%, rgba(67,215,232,.07), transparent 30rem),
+    linear-gradient(180deg, #f7f8fc, var(--bg));
 }
 
 a { color: inherit; }
 .shell {
-  width: min(1080px, calc(100% - 40px));
+  width: min(1180px, calc(100% - 40px));
   min-height: 100vh;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(340px, .72fr);
+  grid-template-columns: minmax(0, 1.18fr) minmax(380px, .72fr);
   align-items: center;
-  gap: 44px;
-  padding: 44px 0;
+  gap: 26px;
+  padding: 30px 0;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 46px;
-  color: var(--text);
+  margin-bottom: 54px;
+  color: #f8fafc;
   font-size: 14px;
   font-weight: 900;
   letter-spacing: .06em;
@@ -64,36 +65,44 @@ a { color: inherit; }
   height: 34px;
   display: grid;
   place-items: center;
-  border-radius: 8px;
-  background: var(--text);
-  color: #fff;
-  box-shadow: 0 12px 28px rgba(24, 32, 51, .18);
+  border: 1px solid rgba(173,184,255,.28);
+  border-radius: 11px;
+  color: #dfe5ff;
+  background: linear-gradient(145deg, rgba(122,137,255,.28), rgba(255,255,255,.07));
+  box-shadow: 0 14px 32px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.14);
 }
 
 .brand-mark svg { width: 17px; height: 17px; fill: currentColor; }
-.intro { max-width: 600px; }
+.intro { position: relative; isolation: isolate; max-width: none; min-height: 650px; overflow: hidden; padding: clamp(30px, 4vw, 52px); border: 1px solid rgba(255,255,255,.09); border-radius: 24px; color: #f8fafc; background: radial-gradient(circle at 74% 30%, rgba(83,101,255,.3), transparent 28%), radial-gradient(circle at 24% 110%, rgba(31,201,216,.13), transparent 32%), linear-gradient(135deg, #0a1021 0%, #111b37 58%, #10172d 100%); box-shadow: 0 30px 70px rgba(15,23,42,.2), inset 0 1px 0 rgba(255,255,255,.08); }
+.intro::before { content: ""; position: absolute; z-index: -2; inset: 0; opacity: .2; background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size: 46px 46px; mask-image: linear-gradient(110deg, #000, transparent 78%); }
+.intro::after { content: ""; position: absolute; z-index: -1; top: -150px; right: -120px; width: 430px; height: 430px; border: 1px solid rgba(130,148,255,.2); border-radius: 50%; box-shadow: 0 0 80px rgba(91,108,255,.08); }
 .kicker {
   margin: 0 0 12px;
-  color: var(--accent-2);
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #9da9ff;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: .10em;
   text-transform: uppercase;
 }
+.kicker::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #60e6b1; box-shadow: 0 0 0 5px rgba(96,230,177,.1), 0 0 18px rgba(96,230,177,.55); }
 
 h1 {
   margin: 0;
   max-width: 660px;
-  font-size: 44px;
+  color: #fff;
+  font-size: clamp(38px, 4vw, 56px);
   line-height: 1.08;
-  letter-spacing: 0;
+  letter-spacing: -.045em;
 }
 
 .intro-copy {
   margin: 18px 0 0;
   max-width: 560px;
-  color: var(--muted);
-  font-size: 15px;
+  color: #9aa7c2;
+  font-size: 14px;
   line-height: 1.8;
 }
 
@@ -101,15 +110,17 @@ h1 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
-  margin-top: 34px;
+  margin-top: 38px;
 }
 
 .access-item {
   min-height: 74px;
-  padding: 14px;
-  border: 1px solid rgba(217, 222, 234, .82);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, .58);
+  padding: 15px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 14px;
+  background: rgba(255,255,255,.055);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+  backdrop-filter: blur(10px);
 }
 
 .access-item strong {
@@ -119,18 +130,18 @@ h1 {
 }
 
 .access-item span {
-  color: var(--muted);
+  color: #8996b2;
   font-size: 12px;
   line-height: 1.5;
 }
 
 .panel {
   width: 100%;
-  padding: 26px;
-  border: 1px solid rgba(217, 222, 234, .92);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, .92);
-  box-shadow: var(--shadow);
+  padding: 30px;
+  border: 1px solid rgba(218,224,235,.94);
+  border-radius: 20px;
+  background: rgba(255,255,255,.95);
+  box-shadow: var(--shadow), inset 0 1px 0 #fff;
 }
 
 .panel-head {
@@ -156,11 +167,11 @@ h1 {
 
 .status-pill {
   flex: 0 0 auto;
-  padding: 6px 9px;
-  border: 1px solid rgba(79, 70, 229, .18);
-  border-radius: 7px;
+  padding: 6px 10px;
+  border: 1px solid rgba(91,108,255,.18);
+  border-radius: 999px;
   color: var(--accent);
-  background: rgba(79, 70, 229, .08);
+  background: rgba(91,108,255,.08);
   font-size: 11px;
   font-weight: 900;
 }
@@ -183,16 +194,16 @@ h1 {
   min-width: 0;
   padding: 0 13px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 11px;
   outline: none;
   color: var(--text);
-  background: var(--surface-2);
+  background: #f9fafc;
   font: 700 16px/1.2 inherit;
 }
 
 .field input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 13%, transparent), 0 8px 22px rgba(91,108,255,.055);
   background: #fff;
 }
 
@@ -211,20 +222,25 @@ h1 {
   gap: 8px;
   padding: 0 14px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 11px;
   background: var(--surface);
   color: var(--text);
   cursor: pointer;
   font-size: 14px;
-  font-weight: 900;
+  box-shadow: 0 6px 16px rgba(15,23,42,.045);
+  font-weight: 850;
   text-decoration: none;
+  transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
 }
 
 .button.primary {
   border-color: var(--accent);
-  background: var(--accent);
+  background: linear-gradient(135deg, #6878ff, #4556ea);
   color: #fff;
+  box-shadow: 0 12px 26px rgba(91,108,255,.22);
 }
+.button:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); box-shadow: 0 10px 24px rgba(15,23,42,.08); transform: translateY(-1px); }
+.button:focus-visible, .field input:focus-visible, .brand:focus-visible { outline: 2px solid #7b88ff; outline-offset: 3px; }
 
 .button:disabled {
   cursor: not-allowed;
@@ -257,7 +273,7 @@ h1 {
 .signed-card {
   padding: 14px;
   border: 1px solid rgba(4, 120, 87, .20);
-  border-radius: 8px;
+  border-radius: 12px;
   background: rgba(4, 120, 87, .08);
 }
 
@@ -271,14 +287,21 @@ h1 {
     gap: 28px;
     padding: 28px 0 38px;
   }
-  .brand { margin-bottom: 26px; }
-  h1 { font-size: 32px; }
-  .access-list { grid-template-columns: 1fr; margin-top: 22px; }
+  .intro { min-height: 0; padding: 30px; }
+  .brand { margin-bottom: 30px; }
+  h1 { font-size: 36px; }
+  .access-list { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 26px; }
   .panel { padding: 20px; }
 }
 
 @media (max-width: 480px) {
-  .shell { width: min(100% - 24px, 680px); }
+  .shell { width: min(100% - 24px, 680px); padding-top: 12px; }
+  .intro { padding: 24px 20px; border-radius: 18px; }
+  .brand { margin-bottom: 22px; }
+  h1 { font-size: 31px; }
+  .intro-copy { font-size: 13px; }
+  .access-list { display: none; }
+  .field input { font-size: 16px; }
   .panel-head { display: grid; }
   .status-pill { width: max-content; }
   .button-row { grid-template-columns: 1fr; }
