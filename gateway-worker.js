@@ -52,11 +52,7 @@ export default {
       return Response.redirect(redirectUrl(url, url.pathname), 301);
     }
 
-    if (url.pathname === "/login") {
-      return Response.redirect(`${CANONICAL_ORIGIN}/login/${url.search}`, 301);
-    }
-
-    if (url.pathname === "/login/") {
+    if (url.pathname === "/login" || url.pathname === "/login/") {
       return handleLoginPage(request);
     }
 
@@ -186,7 +182,7 @@ async function handleLoginPage(request) {
     return json({ ok: false, error: "Method not allowed" }, 405);
   }
   const url = new URL(request.url);
-  const target = new URL("/login.html", HOME_ORIGIN);
+  const target = new URL("/login", HOME_ORIGIN);
   target.search = url.search;
   return fetch(target.toString(), {
     method: request.method,
@@ -206,7 +202,7 @@ function wantsJson(request) {
 
 function loginRedirect(request) {
   const url = new URL(request.url);
-  const login = new URL("/login/", CANONICAL_ORIGIN);
+  const login = new URL("/login", CANONICAL_ORIGIN);
   login.searchParams.set("next", `${url.pathname}${url.search}`);
   return Response.redirect(login.toString(), 302);
 }
